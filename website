@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -170,6 +171,18 @@ h1 em{font-style:normal;color:var(--accent)}
 .btn-ghost{color:rgba(255,255,255,0.55);padding:14px 28px;border-radius:100px;font-size:15px;font-weight:500;text-decoration:none;border:1.5px solid rgba(255,255,255,0.15);transition:all 0.2s}
 .btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,0.4)}
 
+/* FORM */
+.contact-form{background:var(--card);border-radius:20px;padding:36px;margin-top:32px;border:1px solid var(--border);text-align:left}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted)}
+.form-group input,.form-group select,.form-group textarea{padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-family:var(--bf);font-size:14px;color:var(--ink);background:var(--surface);outline:none;transition:border-color 0.2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-submit{background:var(--accent);color:var(--ink);padding:14px 32px;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;font-family:var(--bf)}
+.form-submit:hover{background:var(--accent-dark);color:#fff}
+.form-note{font-size:12px;color:var(--muted);margin-top:12px}
 /* FOOTER */
 .footer{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px}
 .footer-logo{font-family:var(--hf);font-weight:800;font-size:18px}
@@ -412,10 +425,52 @@ h1 em{font-style:normal;color:var(--accent)}
 <!-- CTA -->
 <div class="cta-section" id="contact">
   <h2>Klaar om te stoppen met<br><em>CV-schuivers betalen?</em></h2>
-  <p>Plan een vrijblijvend kennismakingsgesprek van 20 minuten.</p>
-  <div class="cta-btns">
-    <a href="mailto:hallo@flexproof.nl" class="btn-white">Plan een gesprek →</a>
-    <a href="mailto:hallo@flexproof.nl" class="btn-ghost">hallo@flexproof.nl</a>
+  <p>Plan een vrijblijvend kennismakingsgesprek van 20 minuten. We reageren binnen 1 werkdag.</p>
+  <div class="contact-form">
+    <form action="https://formspree.io/f/xdapjbng" method="POST">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Voornaam</label>
+          <input type="text" name="voornaam" placeholder="Jan" required>
+        </div>
+        <div class="form-group">
+          <label>Achternaam</label>
+          <input type="text" name="achternaam" placeholder="de Vries" required>
+        </div>
+        <div class="form-group">
+          <label>E-mailadres</label>
+          <input type="email" name="email" placeholder="jan@bedrijf.nl" required>
+        </div>
+        <div class="form-group">
+          <label>Bedrijfsnaam</label>
+          <input type="text" name="bedrijf" placeholder="Jouw bedrijf">
+        </div>
+        <div class="form-group">
+          <label>Pakket interesse</label>
+          <select name="pakket">
+            <option value="">Nog niet zeker</option>
+            <option value="starter">Starter — €750/mnd + 12%</option>
+            <option value="medium">Medium — €1.500/mnd + 10%</option>
+            <option value="advanced">Advanced — op aanvraag</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Aantal hires per jaar</label>
+          <select name="hires">
+            <option value="">Onbekend</option>
+            <option value="1-2">1 - 2</option>
+            <option value="3-5">3 - 5</option>
+            <option value="6+">6 of meer</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Bericht (optioneel)</label>
+          <textarea name="bericht" placeholder="Vertel kort over je wervingsvraagstuk..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">Verstuur aanvraag →</button>
+      <div class="form-note">Je gegevens worden alleen gebruikt om contact met je op te nemen. Geen spam, nooit.</div>
+    </form>
   </div>
 </div>
 
@@ -425,7 +480,7 @@ h1 em{font-style:normal;color:var(--accent)}
   <div class="footer-copy">© 2026 Flexproof — Recruitment as a Service</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var pkgs={starter:{m:750,pct:0.12},medium:{m:1500,pct:0.10},advanced:{m:2500,pct:0.08}};
 function fmt(n){return'€ '+Math.round(n).toLocaleString('nl-NL')}
 function calc(){
@@ -456,12 +511,3 @@ function calc(){
   document.getElementById('b-fee').textContent=fmt(perFee);
   var te=document.getElementById('b-total');
   te.textContent=fmt(perTotal);
-  te.className=perTotal<perBureau?'col-green':'col-red';
-}
-document.getElementById('sal').addEventListener('input',calc);
-document.getElementById('h').addEventListener('input',calc);
-document.getElementById('pkg').addEventListener('change',calc);
-calc();
-</script>
-</body>
-</html>
